@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const checkJWT = require('../functions/checkJWT');
 const UserModel = require('../../../../Models/UserModel');
+const GroceryItemsModel = require('../../../../Models/GroceryItemsModel');
 
 router.get(`/`, checkJWT, async (req, res, next) => {
 	const userId = req.userid;
-	const query = UserModel.findById(userId).select('wishlist');
+	const query = UserModel.findOne({_id: userId}).populate('wishlist').select('wishlist');
 	query.exec((err, result) => {
 		if (err) {
 			next(err);
