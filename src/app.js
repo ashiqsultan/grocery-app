@@ -1,10 +1,11 @@
 const express = require('express');
+const cors = require('cors')
 const morgan = require('morgan');
 const apiVersion1 = require('./api/v1/routes');
 const dbConnect = require('./util/dbConnect');
 
 const app = express();
-
+app.use(cors());
 app.use(morgan('dev')); // Middleware Morgan to log all request
 app.use(express.json({ extended: false })); // Middleware to parse request body
 dbConnect();
